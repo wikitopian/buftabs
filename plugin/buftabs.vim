@@ -338,7 +338,7 @@ endfunction
 " buffers
 "
 
-autocmd VimEnter * call Buftabs_enable()
+autocmd VimEnter,WinEnter * call Buftabs_enable()
 autocmd VimEnter,BufNew,BufEnter,BufWritePost * call Buftabs_show(-1)
 autocmd BufDelete * call Buftabs_show(expand('<abuf>'))
 if version >= 700
