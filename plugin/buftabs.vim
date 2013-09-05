@@ -146,7 +146,6 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let w:buftabs_enabled = 0
 let w:original_statusline = matchstr(&statusline, "%=.*")
 
 "
