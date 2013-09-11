@@ -14,12 +14,7 @@ function! s:FullFileName(filename)
 endfunction
 
 function! s:RootDirectory(filename)
-  let l:cwd = getcwd()
-  if match(s:FullFileName(a:filename), '^' . l:cwd) != -1
-    return l:cwd
-  else
-    return ''
-  endif
+  return FindRootDirectoryOfPath(s:FullFileName(a:filename))
 endfunction
 
 function! s:Tail(filename)
