@@ -97,7 +97,7 @@ function! Buftabs_show(deleted_buf)
 
 		" Only show buffers in the list, and omit help screens
 	
-		if buflisted(l:i) && getbufvar(l:i, "&modifiable") && a:deleted_buf != l:i
+		if g:BuftabsFilterFile(l:i)==0 && buflisted(l:i) && getbufvar(l:i, "&modifiable") && a:deleted_buf != l:i
 
 			" Get the name of the current buffer, and escape characters that might
 			" mess up the statusline
