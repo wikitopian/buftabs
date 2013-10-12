@@ -28,6 +28,14 @@ function! Buftabs_enable()
 	let w:buftabs_enabled = 1
 endfunction
 
+function! s:GetFormatterPattern()
+  if exists("g:buftabs_formatter_pattern") 
+    return g:buftabs_formatter_pattern
+  else
+    return "[bufnum]-[bufname]"
+  endif
+endfunction
+
 
 "
 " Persistent echo to avoid overwriting of status line when 'hidden' is enabled
@@ -94,11 +102,7 @@ function! Buftabs_show(deleted_buf)
 			" Get the name of the current buffer, and escape characters that might
 			" mess up the statusline
 
-			if exists("g:buftabs_only_basename")
-				let l:name = fnamemodify(bufname(l:i), ":t")
-			else
-				let l:name = bufname(l:i)
-			endif
+      let l:name = g:FormatFileName(s:GetFormatterPattern(), l:i)
 			let l:name = substitute(l:name, "%", "%%", "g")
 			
 			" Append the current buffer number and name to the list. If the buffer
@@ -113,7 +117,6 @@ function! Buftabs_show(deleted_buf)
 				let s:list = s:list . ' '
 			endif
 				
-			let s:list = s:list . l:i . l:buftabs_separator
 			let s:list = s:list . l:name
 
 			if getbufvar(l:i, "&modified") == 1
