@@ -40,7 +40,7 @@ Configuration
      
     By default buftabs will take up the whole of the left-aligned section of
     your statusline. You can alternatively specify precisely where it goes
-    using %{buftabs#statusline()} e.g.:
+    using `%{buftabs#statusline()}` e.g.:
 
     ```vimscript
     set statusline=%=buffers:\ %{buftabs#statusline()}
