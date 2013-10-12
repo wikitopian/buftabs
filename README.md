@@ -16,11 +16,11 @@ Configuration
     Set a pattern for displaying your buffer names.
     Patterns can be built using expressions:
 
-      * \[bufnum\] - buffer number in vi
-      * \[bufname\] - buffer name in vi
-      * \[root_tail\] - highest directory name of the root
-      * \[short_path_letters\] - first letters of the path after root 
-      * \[filename\] - file name
+      * `[bufnum]` - buffer number in vi
+      * `[bufname]` - buffer name in vi
+      * `[root_tail]` - highest directory name of the root
+      * `[short_path_letters]` - first letters of the path after root 
+      * `[filename]` - file name
 
     Example usage:
     ```vimscript
