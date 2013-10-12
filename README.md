@@ -23,7 +23,9 @@ Configuration
       * \[filename\] - file name
 
     Example usage:
+    ```vimscript
     let g:buftabs_formatter_pattern = '[root_tail]/[short_path_letters][filename]'
+    ```
 
   * g:buftabs_in_statusline
 
@@ -31,14 +33,18 @@ Configuration
     instead of the command line. It is a good idea to configure vim to show
     the statusline as well when only one window is open. Add to your .vimrc:
 
+    ```vimscript
     set laststatus=2
     let g:buftabs_in_statusline=1
+    ```
      
     By default buftabs will take up the whole of the left-aligned section of
     your statusline. You can alternatively specify precisely where it goes
     using %{buftabs#statusline()} e.g.:
 
+    ```vimscript
     set statusline=%=buffers:\ %{buftabs#statusline()}
+    ```
 
   * g:buftabs_active_highlight_group
   * g:buftabs_inactive_highlight_group
@@ -50,8 +56,10 @@ Configuration
 
     You can use your own highlight groups:
 
+    ```vimscript
     hi BuftabsNormal  guifg=#D2FF2F guibg=Black
     hi BuftabsActive  guifg=#FFFFFF guibg=#2EE5FA
 
     let g:buftabs_active_highlight_group='BuftabsActive'
     let g:buftabs_inactive_highlight_group='BuftabsNormal'
+    ```
