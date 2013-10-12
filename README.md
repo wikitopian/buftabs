@@ -27,7 +27,7 @@ Configuration
     let g:buftabs_formatter_pattern = '[root_tail]/[short_path_letters][filename]'
     ```
 
-  * g:buftabs_in_statusline
+  * `g:buftabs_in_statusline`
 
     Define this variable to make the plugin show the buftabs in the statusline
     instead of the command line. It is a good idea to configure vim to show
@@ -46,8 +46,8 @@ Configuration
     set statusline=%=buffers:\ %{buftabs#statusline()}
     ```
 
-  * g:buftabs_active_highlight_group
-  * g:buftabs_inactive_highlight_group
+  * `g:buftabs_active_highlight_group`
+  * `g:buftabs_inactive_highlight_group`
 
     The name of a highlight group (:help highligh-groups) which is used to
     show the name of the current active buffer and of all other inactive
