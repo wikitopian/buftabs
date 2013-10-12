@@ -11,7 +11,7 @@ no additional windows or lines are used.
 Configuration
 -------------
 
-  * g:buftabs_formatter_pattern
+  * `g:buftabs_formatter_pattern`
 
     Set a pattern for displaying your buffer names.
     Patterns can be built using expressions:
