@@ -57,3 +57,5 @@ Changelog
                   (Thanks Andrew Ho)
 
 s0.19 2013-09-05  Fixed some problems realted to variable scopes
+
+s0.20 2013-10-12  Implemented buffer names custom formatting
