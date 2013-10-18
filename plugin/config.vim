@@ -37,5 +37,11 @@ function! g:GetBuftabsConfig()
   call s:SetSettingFromVariable('display', 'statusline',
         \ "g:buftabs_in_statusline", 0)
 
+  call s:SetSettingFromVariable('formatter_pattern', 'start_marker',
+	\ 'g:buftabs_marker_start', "[")
+
+  call s:SetSettingFromVariable('formatter_pattern', 'end_marker',
+        \ 'g:buftabs_marker_end', "]")
+
   return s:config
 endfunction
