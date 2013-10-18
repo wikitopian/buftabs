@@ -135,15 +135,13 @@ let s:config = g:GetBuftabsConfig()
 	" current buffer. The markers can be simple characters like square brackets,
 	" but can also be special codes with highlight groups
   
-	if config['highlight_group']['active']
-		if exists("g:buftabs_in_statusline")
+  if config['display']['statusline']
+    if config['highlight_group']['active']
 			let l:buftabs_marker_start = "%#" . config['highlight_group']['active'] . "#" . l:buftabs_marker_start
 			let l:buftabs_marker_end = l:buftabs_marker_end . "%##"
 		end
-	end
 
-	if config['highlight_group']['inactive']
-		if exists("g:buftabs_in_statusline")
+    if config['highlight_group']['inactive']
 			let s:list = '%#' . config['highlight_group']['inactive'] . '#' . s:list
 			let s:list .= '%##'
 			let l:buftabs_marker_end = l:buftabs_marker_end . '%#' . config['highlight_group']['inactive'] . '#'
@@ -157,7 +155,7 @@ let s:config = g:GetBuftabsConfig()
 	" is displayed in the command line (volatile) or in the statusline
 	" (persistent)
 
-	if exists("g:buftabs_in_statusline")
+  if config['display']['statusline']
 		" Only overwrite the statusline if buftabs#statusline() has not been
 		" used to specify a location
 		if match(&statusline, "%{buftabs#statusline()}") == -1
