@@ -64,11 +64,6 @@ function! Buftabs_show(deleted_buf)
 		return
 	endif
 
-	let l:buftabs_separator = "-"
-	if exists("g:buftabs_separator")
-		let l:buftabs_separator = g:buftabs_separator
-	endif
-
 	let l:buftabs_marker_start = "["
 	if exists("g:buftabs_marker_start")
 		let l:buftabs_marker_start = g:buftabs_marker_start
