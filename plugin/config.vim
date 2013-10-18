@@ -28,5 +28,11 @@ function! g:GetBuftabsConfig()
   call s:SetSettingFromVariable('formatter_pattern', 'modified_marker',
         \ "g:buftabs_marker_modified", "!")
 
+  call s:SetSettingFromVariable('highlight_group', 'active',
+        \ "g:buftabs_active_highlight_group", 0)
+
+  call s:SetSettingFromVariable('highlight_group', 'inactive',
+        \ "g:buftabs_inactive_highlight_group", 0)
+
   return s:config
 endfunction
