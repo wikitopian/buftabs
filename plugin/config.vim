@@ -22,7 +22,8 @@ endfunction
 function! g:GetBuftabsConfig()
   let s:config={}
 
-  "settings go here
+  call s:SetSettingFromVariable('formatter_pattern', 'normal',
+        \ "g:buftabs_formatter_pattern", "[bufnum]-[bufname]")
 
   return s:config
 endfunction
