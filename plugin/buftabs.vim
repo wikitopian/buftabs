@@ -135,18 +135,18 @@ function! Buftabs_show(deleted_buf)
 	" current buffer. The markers can be simple characters like square brackets,
 	" but can also be special codes with highlight groups
   
-	if exists("g:buftabs_active_highlight_group")
+	if config['highlight_group']['active']
 		if exists("g:buftabs_in_statusline")
-			let l:buftabs_marker_start = "%#" . g:buftabs_active_highlight_group . "#" . l:buftabs_marker_start
+			let l:buftabs_marker_start = "%#" . config['highlight_group']['active'] . "#" . l:buftabs_marker_start
 			let l:buftabs_marker_end = l:buftabs_marker_end . "%##"
 		end
 	end
 
-	if exists("g:buftabs_inactive_highlight_group")
+	if config['highlight_group']['inactive']
 		if exists("g:buftabs_in_statusline")
-			let s:list = '%#' . g:buftabs_inactive_highlight_group . '#' . s:list
+			let s:list = '%#' . config['highlight_group']['inactive'] . '#' . s:list
 			let s:list .= '%##'
-			let l:buftabs_marker_end = l:buftabs_marker_end . '%#' . g:buftabs_inactive_highlight_group . '#'
+			let l:buftabs_marker_end = l:buftabs_marker_end . '%#' . config['highlight_group']['inactive'] . '#'
 		end
 	end
 
