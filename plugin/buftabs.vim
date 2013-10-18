@@ -125,23 +125,9 @@ let s:config = g:GetBuftabsConfig()
 	" current buffer. The markers can be simple characters like square brackets,
 	" but can also be special codes with highlight groups
 
-  let l:buftabs_marker_end = s:config['formatter_pattern']['end_marker']
-  let l:buftabs_marker_start = s:config['formatter_pattern']['start_marker']
-  if s:config['display']['statusline']
-    if s:config['highlight_group']['active']
-			let l:buftabs_marker_start = "%#" . s:config['highlight_group']['active'] . "#" . s:config['formatter_pattern']['start_marker']
-      let l:buftabs_marker_end = s:config['formatter_pattern']['end_marker'] . "%##"
-		end
-
-    if s:config['highlight_group']['inactive']
-			let s:list = '%#' . s:config['highlight_group']['inactive'] . '#' . s:list
-			let s:list .= '%##'
-			let l:buftabs_marker_end = s:config['formatter_pattern']['end_marker'] . '%#' . s:config['highlight_group']['inactive'] . '#'
-		end
-	end
-
-	let s:list = substitute(s:list, "\x01", l:buftabs_marker_start, 'g')
-	let s:list = substitute(s:list, "\x02", l:buftabs_marker_end, 'g')
+  let s:list = s:config['formatter_pattern']['list_prefix'] . s:list . s:config['formatter_pattern']['list_suffix']
+	let s:list = substitute(s:list, "\x01", s:config['formatter_pattern']['active_prefix'], 'g')
+	let s:list = substitute(s:list, "\x02", s:config['formatter_pattern']['active_suffix'], 'g')
 
 	" Show the list. The buftabs_in_statusline variable determines of the list
 	" is displayed in the command line (volatile) or in the statusline
