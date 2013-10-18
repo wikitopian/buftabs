@@ -34,5 +34,8 @@ function! g:GetBuftabsConfig()
   call s:SetSettingFromVariable('highlight_group', 'inactive',
         \ "g:buftabs_inactive_highlight_group", 0)
 
+  call s:SetSettingFromVariable('display', 'statusline',
+        \ "g:buftabs_in_statusline", 0)
+
   return s:config
 endfunction
