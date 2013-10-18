@@ -64,11 +64,6 @@ let s:config = g:GetBuftabsConfig()
 		return
 	endif
 
-	let l:buftabs_marker_modified = "!"
-	if exists("g:buftabs_marker_modified")
-		let l:buftabs_marker_modified = g:buftabs_marker_modified
-	endif
-
 	let l:buftabs_separator = "-"
 	if exists("g:buftabs_separator")
 		let l:buftabs_separator = g:buftabs_separator
@@ -113,7 +108,7 @@ let s:config = g:GetBuftabsConfig()
 			let s:list = s:list . l:name
 
 			if getbufvar(l:i, "&modified") == 1
-				let s:list = s:list . l:buftabs_marker_modified
+				let s:list = s:list . s:config['formatter_pattern']['modified_marker']
 			endif
 			
 			if winbufnr(winnr()) == l:i

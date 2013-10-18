@@ -25,5 +25,8 @@ function! g:GetBuftabsConfig()
   call s:SetSettingFromVariable('formatter_pattern', 'normal',
         \ "g:buftabs_formatter_pattern", "[bufnum]-[bufname]")
 
+  call s:SetSettingFromVariable('formatter_pattern', 'modified_marker',
+        \ "g:buftabs_marker_modified", "!")
+
   return s:config
 endfunction
