@@ -77,6 +77,10 @@ let s:config = g:GetBuftabsConfig()
 
       let l:name = g:FormatFileName(s:config['formatter_pattern']['normal'], l:i)
 			let l:name = substitute(l:name, "%", "%%", "g")
+
+			if getbufvar(l:i, "&modified") == 1
+				let l:name = l:name . s:config['formatter_pattern']['modified_marker']
+			endif
 			
 			" Append the current buffer number and name to the list. If the buffer
 			" is the active buffer, enclose it in some magick characters which will
@@ -85,22 +89,10 @@ let s:config = g:GetBuftabsConfig()
 
 			if winbufnr(winnr()) == l:i
 				let l:start = strlen(s:list)
-				let s:list = s:list . "\x01"
-			else
-				let s:list = s:list . ' '
-			endif
-				
-			let s:list = s:list . l:name
-
-			if getbufvar(l:i, "&modified") == 1
-				let s:list = s:list . s:config['formatter_pattern']['modified_marker']
-			endif
-			
-			if winbufnr(winnr()) == l:i
-				let s:list = s:list . "\x02"
+				let s:list = s:list . s:config['formatter_pattern']['active_prefix'] . l:name . s:config['formatter_pattern']['active_suffix']
 				let l:end = strlen(s:list)
 			else
-				let s:list = s:list . ' '
+				let s:list = s:list . ' ' . l:name . ' '
 			endif
 		end
 
@@ -121,13 +113,7 @@ let s:config = g:GetBuftabsConfig()
 		
 	let s:list = strpart(s:list, w:from, l:width)
 
-	" Replace the magic characters by visible markers for highlighting the
-	" current buffer. The markers can be simple characters like square brackets,
-	" but can also be special codes with highlight groups
-
   let s:list = s:config['formatter_pattern']['list_prefix'] . s:list . s:config['formatter_pattern']['list_suffix']
-	let s:list = substitute(s:list, "\x01", s:config['formatter_pattern']['active_prefix'], 'g')
-	let s:list = substitute(s:list, "\x02", s:config['formatter_pattern']['active_suffix'], 'g')
 
 	" Show the list. The buftabs_in_statusline variable determines of the list
 	" is displayed in the command line (volatile) or in the statusline
