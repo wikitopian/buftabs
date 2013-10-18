@@ -64,16 +64,6 @@ function! Buftabs_show(deleted_buf)
 		return
 	endif
 
-	let l:buftabs_marker_start = "["
-	if exists("g:buftabs_marker_start")
-		let l:buftabs_marker_start = g:buftabs_marker_start
-	endif
-
-	let l:buftabs_marker_end = "]"
-	if exists("g:buftabs_marker_end")
-		let l:buftabs_marker_end = g:buftabs_marker_end
-	endif
-
 	" Walk the list of buffers
 
 	while(l:i <= bufnr('$'))
@@ -134,17 +124,19 @@ function! Buftabs_show(deleted_buf)
 	" Replace the magic characters by visible markers for highlighting the
 	" current buffer. The markers can be simple characters like square brackets,
 	" but can also be special codes with highlight groups
-  
-  if config['display']['statusline']
-    if config['highlight_group']['active']
-			let l:buftabs_marker_start = "%#" . config['highlight_group']['active'] . "#" . l:buftabs_marker_start
-			let l:buftabs_marker_end = l:buftabs_marker_end . "%##"
+
+  let l:buftabs_marker_end = s:config['formatter_pattern']['end_marker']
+  let l:buftabs_marker_start = s:config['formatter_pattern']['start_marker']
+  if s:config['display']['statusline']
+    if s:config['highlight_group']['active']
+			let l:buftabs_marker_start = "%#" . s:config['highlight_group']['active'] . "#" . s:config['formatter_pattern']['start_marker']
+      let l:buftabs_marker_end = s:config['formatter_pattern']['end_marker'] . "%##"
 		end
 
-    if config['highlight_group']['inactive']
-			let s:list = '%#' . config['highlight_group']['inactive'] . '#' . s:list
+    if s:config['highlight_group']['inactive']
+			let s:list = '%#' . s:config['highlight_group']['inactive'] . '#' . s:list
 			let s:list .= '%##'
-			let l:buftabs_marker_end = l:buftabs_marker_end . '%#' . config['highlight_group']['inactive'] . '#'
+			let l:buftabs_marker_end = s:config['formatter_pattern']['end_marker'] . '%#' . s:config['highlight_group']['inactive'] . '#'
 		end
 	end
 
@@ -155,7 +147,7 @@ function! Buftabs_show(deleted_buf)
 	" is displayed in the command line (volatile) or in the statusline
 	" (persistent)
 
-  if config['display']['statusline']
+  if s:config['display']['statusline']
 		" Only overwrite the statusline if buftabs#statusline() has not been
 		" used to specify a location
 		if match(&statusline, "%{buftabs#statusline()}") == -1
