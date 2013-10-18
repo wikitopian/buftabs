@@ -57,6 +57,7 @@ function! g:GetBuftabsConfig()
     if s:GetSetting('highlight_group', 'inactive')
       let l:list_prefix = '%#' . s:GetSetting('highlight_group', 'inactive') . '#'
       let l:list_suffix = '%##'
+      let l:marker_start = l:marker_start . "%##"
       let l:marker_end = l:marker_end . '%#' . s:GetSetting('highlight_group', 'inactive') . '#'
     end
   end
