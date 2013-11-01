@@ -80,7 +80,7 @@ let s:config = g:GetBuftabsConfig()
 			let l:name = substitute(l:name, "%", "%%", "g")
 
 			if getbufvar(l:i, "&modified") == 1
-				let s:name = s:name . s:config['formatter_pattern']['modified_marker']
+				let l:name = l:name . s:config['formatter_pattern']['modified_marker']
 			endif
 			
 			" Append the current buffer number and name to the list. If the buffer
