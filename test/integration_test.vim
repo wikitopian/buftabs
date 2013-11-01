@@ -2,6 +2,7 @@ exec 'source ' . getcwd() . '/plugin/buftabs.vim'
 exec 'source ' . getcwd() . '/plugin/config.vim'
 exec 'source ' . getcwd() . '/plugin/formatter.vim'
 exec 'source ' . getcwd() . '/plugin/rooter.vim'
+exec 'source ' . getcwd() . '/plugin/display.vim'
 
 function! TestBasics()
   let g:buftabs_in_statusline = 1
