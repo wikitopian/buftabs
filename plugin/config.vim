@@ -49,15 +49,15 @@ function! g:GetBuftabsConfig()
   let l:list_suffix = ''
 
   if s:GetSetting('display', 'statusline')
-    if s:GetSetting('highlight_group', 'active')
+    if s:GetSetting('highlight_group', 'active') != ''
       let l:marker_start = "%#" . s:GetSetting('highlight_group', 'active') . "#" . l:marker_start
       let l:marker_end = l:marker_end . "%##"
     end
 
-    if s:GetSetting('highlight_group', 'inactive')
+    if s:GetSetting('highlight_group', 'inactive') != ''
       let l:list_prefix = '%#' . s:GetSetting('highlight_group', 'inactive') . '#'
       let l:list_suffix = '%##'
-      let l:marker_start = l:marker_start . "%##"
+      let l:marker_start = "%##" . l:marker_start
       let l:marker_end = l:marker_end . '%#' . s:GetSetting('highlight_group', 'inactive') . '#'
     end
   end
