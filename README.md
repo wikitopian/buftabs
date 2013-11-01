@@ -34,7 +34,7 @@ Configuration
     the statusline as well when only one window is open. Add to your .vimrc:
 
     ```vimscript
-    set laststatus=2
+    let laststatus=2
     let g:buftabs_in_statusline=1
     ```
      
@@ -43,13 +43,29 @@ Configuration
     using `%{buftabs#statusline()}` e.g.:
 
     ```vimscript
-    set statusline=%=buffers:\ %{buftabs#statusline()}
+    let statusline=%=buffers:\ %{buftabs#statusline()}
     ```
 
+  * `g:buftabs_marker_start`
+  * `g:buftabs_marker_end`
+
+    Define to change the markers surrounging currently active buffer
+
+    ```vimscript
+    let g:buftabs_marker_start='<'
+    let g:buftabs_marker_end='>'
+    ```
+  * `g:buftabs_marker_modified`
+
+    Set the marker appended to modified buffers
+
+    ```vimscript
+    let g:buftabs_marker_modified='M'
+    ```
   * `g:buftabs_active_highlight_group`
   * `g:buftabs_inactive_highlight_group`
 
-    The name of a highlight group (:help highligh-groups) which is used to
+    The name of a highlight group (:help highlight-groups) which is used to
     show the name of the current active buffer and of all other inactive
     buffers. If these variables are not defined, no highlighting is used.
     (Highlighting is only functional when g:buftabs_in_statusline is enabled)
