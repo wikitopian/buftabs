@@ -49,7 +49,7 @@ Configuration
   * `g:buftabs_active_highlight_group`
   * `g:buftabs_inactive_highlight_group`
 
-    The name of a highlight group (:help highligh-groups) which is used to
+    The name of a highlight group (:help highlight-groups) which is used to
     show the name of the current active buffer and of all other inactive
     buffers. If these variables are not defined, no highlighting is used.
     (Highlighting is only functional when g:buftabs_in_statusline is enabled)
