@@ -9,7 +9,6 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let s:config = g:GetBuftabsConfig()
 
 let g:buftabs_original_statusline = matchstr(&statusline, "%=.*")
 
@@ -51,6 +50,8 @@ endf
 "
 
 function! Buftabs_show(deleted_buf)
+
+let s:config = g:GetBuftabsConfig()
 
 	let l:i = 1
 	let s:list = ''
