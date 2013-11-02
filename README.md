@@ -11,7 +11,7 @@ no additional windows or lines are used.
 Installation
 ------------
 
-I encourage using vundle (https://github.com/gmarik/vundle):
+I encourage using vundle (https://github.com/gmarik/vundle ):
 
 ```vimscript
 Bundle 'szarski/buftabs'
