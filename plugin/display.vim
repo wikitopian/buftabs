@@ -29,7 +29,7 @@ function s:DrawInStatusline(content)
   end
 endfunction
 
-function! g:BuftabsDisplay(content, current_index)
+function s:JoinedContent(content, current_index)
   let l:index=1
   let l:output_before = ''
   let l:output_after = ''
@@ -38,7 +38,7 @@ function! g:BuftabsDisplay(content, current_index)
     if l:index < a:current_index
       let l:output_before .= ' ' . name . ' '
     elseif l:index == a:current_index
-      let l:output_active = name
+      let l:output_active = g:BuftabsConfig()['formatter_pattern']['start_marker'] . name . g:BuftabsConfig()['formatter_pattern']['end_marker']
     else
       let l:output_after .= ' ' . name . ' '
     endif
@@ -56,14 +56,18 @@ function! g:BuftabsDisplay(content, current_index)
   if strlen(l:output_before) > l:width
     let l:output_before = strpart(l:output_before, strlen(l:output_before) - l:width , l:width)
   endif
+
+  return [l:output_before, l:output_active, l:output_after]
+endfunction
+
+function! g:BuftabsDisplay(content, current_index)
+  let l:joined_content = s:JoinedContent(a:content, a:current_index)
          
-  let l:output = g:BuftabsConfig()['formatter_pattern']['list_prefix'] . l:output_before
-  
-  if l:output_active != ''
-    let l:output .= g:BuftabsConfig()['formatter_pattern']['active_prefix'] . l:output_active . g:BuftabsConfig()['formatter_pattern']['active_suffix']
+  let l:output = g:BuftabsConfig()['formatter_pattern']['list_prefix'] . l:joined_content[0]
+  if l:joined_content[1] != ''
+    let l:output .= g:BuftabsConfig()['formatter_pattern']['active_prefix'] . l:joined_content[1] . g:BuftabsConfig()['formatter_pattern']['active_suffix']
   endif
-  
-  let l:output .= l:output_after . g:BuftabsConfig()['formatter_pattern']['list_suffix']
+  let l:output .= l:joined_content[2] . g:BuftabsConfig()['formatter_pattern']['list_suffix']
 
   " Show the list. The s:config['display']['statusline'] setting determines of the list
   " is displayed in the command line (volatile) or in the statusline

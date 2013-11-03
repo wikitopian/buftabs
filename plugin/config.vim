@@ -36,8 +36,8 @@ function! s:GetBuftabsConfig()
 
   call s:SetSettingFromVariable('formatter_pattern', 'end_marker', 'g:buftabs_marker_end', "]")
 
-  let l:marker_end = s:GetSetting('formatter_pattern', 'end_marker')
-  let l:marker_start = s:GetSetting('formatter_pattern', 'start_marker')
+  let l:marker_end = ''
+  let l:marker_start = ''
   let l:list_prefix = ''
   let l:list_suffix = ''
 

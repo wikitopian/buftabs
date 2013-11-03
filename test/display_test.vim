@@ -19,11 +19,14 @@ function! TestBuftabsDisplay()
   call FakeConfig('formatter_pattern','list_suffix','ll')
   call FakeConfig('formatter_pattern','active_suffix','aa')
 
+  call FakeConfig('formatter_pattern','end_marker',']')
+  call FakeConfig('formatter_pattern','start_marker','[')
+
   call Describe("when g:BuftabsConfig()['display']['statusline'] is true")
   let &statusline = ''
   call FakeConfig('display','statusline',1)
   call g:BuftabsDisplay([l:test_string], 1)
-  call AssertEquals(&statusline, 'LLAA' . l:test_string . 'aall')
+  call AssertEquals(&statusline, 'LLAA[' . l:test_string . ']aall')
 
   call Describe("when g:BuftabsConfig()['display']['statusline'] is false")
   let &statusline = ''
