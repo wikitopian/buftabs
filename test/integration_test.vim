@@ -12,9 +12,6 @@ function! TestBasics()
   call AssertEquals(&statusline, ' 1- [2-TestOutput]')
 endf
 
-
-
-
 function TestComplexSetup()
   set laststatus=2
   let g:buftabs_in_statusline=1

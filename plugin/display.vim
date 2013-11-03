@@ -21,19 +21,49 @@ function! s:Pecho(msg)
   aug END
 endf
 
-function s:DrawInStatusline(content)
+function s:DrawInStatusline(joined_content)
+  let l:output = s:StatuslineMarkers()[0] . a:joined_content[0]
+  if a:joined_content[1] != ''
+    let l:output .= s:StatuslineMarkers()[1] . a:joined_content[1] . s:StatuslineMarkers()[2]
+  endif
+  let l:output .= a:joined_content[2] . s:StatuslineMarkers()[3]
+
   " Only overwrite the statusline if g:BuftabsStatusline() has not been
   " used to specify a location
   if match(&statusline, "%{g:BuftabsStatusline()}") == -1
-    let &l:statusline = a:content . g:buftabs_original_statusline
+    let &l:statusline = l:output . g:buftabs_original_statusline
   end
+endfunction
+
+function s:StatuslineMarkers()
+  "if !exists('s:status_line_markers')
+    let l:active_suffix = ''
+    let l:active_prefix = ''
+    let l:list_prefix = ''
+    let l:list_suffix = ''
+
+    if g:BuftabsConfig()['highlight_group']['active'] != ''
+      let l:active_prefix = "%#" . g:BuftabsConfig()['highlight_group']['active'] . "#" . l:active_prefix
+      let l:active_suffix = l:active_suffix . "%##"
+    end
+
+    if g:BuftabsConfig()['highlight_group']['inactive'] != ''
+      let l:list_prefix = '%#' . g:BuftabsConfig()['highlight_group']['inactive'] . '#'
+      let l:list_suffix = '%##'
+      let l:active_prefix = "%##" . l:active_prefix
+      let l:active_suffix = l:active_suffix . '%#' . g:BuftabsConfig()['highlight_group']['inactive'] . '#'
+    end
+
+    let s:status_line_markers = [l:list_prefix, l:active_prefix, l:active_suffix, l:list_suffix]
+  "endif
+  return s:status_line_markers
 endfunction
 
 function s:JoinedContent(content, current_index)
   let l:index=1
   let l:output_before = ''
   let l:output_after = ''
-  let l:output_active = 0
+  let l:output_active = ''
   for name in a:content
     if l:index < a:current_index
       let l:output_before .= ' ' . name . ' '
@@ -61,23 +91,16 @@ function s:JoinedContent(content, current_index)
 endfunction
 
 function! g:BuftabsDisplay(content, current_index)
-  let l:joined_content = s:JoinedContent(a:content, a:current_index)
-         
-  let l:output = g:BuftabsConfig()['formatter_pattern']['list_prefix'] . l:joined_content[0]
-  if l:joined_content[1] != ''
-    let l:output .= g:BuftabsConfig()['formatter_pattern']['active_prefix'] . l:joined_content[1] . g:BuftabsConfig()['formatter_pattern']['active_suffix']
-  endif
-  let l:output .= l:joined_content[2] . g:BuftabsConfig()['formatter_pattern']['list_suffix']
-
   " Show the list. The s:config['display']['statusline'] setting determines of the list
   " is displayed in the command line (volatile) or in the statusline
   " (persistent)
 
+  let l:joined_content = s:JoinedContent(a:content, a:current_index)
   if g:BuftabsConfig()['display']['statusline']
-    call s:DrawInStatusline(l:output)
+    call s:DrawInStatusline(l:joined_content)
   else
     redraw
-    call s:Pecho(l:output)
+    call s:Pecho(l:joined_content[0] . l:joined_content[1] . l:joined_content[2])
   end
 endfunction
 

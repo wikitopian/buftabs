@@ -14,19 +14,17 @@ endf
 
 function! TestBuftabsDisplay()
   let l:test_string = 'test_value'
-  call FakeConfig('formatter_pattern','list_prefix','LL')
-  call FakeConfig('formatter_pattern','active_prefix','AA')
-  call FakeConfig('formatter_pattern','list_suffix','ll')
-  call FakeConfig('formatter_pattern','active_suffix','aa')
 
   call FakeConfig('formatter_pattern','end_marker',']')
   call FakeConfig('formatter_pattern','start_marker','[')
+  call FakeConfig('highlight_group','active','AA')
+  call FakeConfig('highlight_group','inactive','NN')
 
   call Describe("when g:BuftabsConfig()['display']['statusline'] is true")
   let &statusline = ''
   call FakeConfig('display','statusline',1)
   call g:BuftabsDisplay([l:test_string], 1)
-  call AssertEquals(&statusline, 'LLAA[' . l:test_string . ']aall')
+  call AssertEquals(&statusline, '%#NN#%##%#AA#[' . l:test_string . ']%##%#NN#%##')
 
   call Describe("when g:BuftabsConfig()['display']['statusline'] is false")
   let &statusline = ''
