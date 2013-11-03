@@ -29,16 +29,51 @@ function s:DrawInStatusline(content)
   end
 endfunction
 
-function! g:BuftabsDisplay(content)
+function! g:BuftabsDisplay(content, current_index)
+  let l:index=1
+  let l:output_before = ''
+  let l:output_after = ''
+  let l:output_active = 0
+  for name in a:content
+    if l:index < a:current_index
+      let l:output_before .= ' ' . name . ' '
+    elseif l:index == a:current_index
+      let l:output_active = name
+    else
+      let l:output_after .= ' ' . name . ' '
+    endif
+    let l:index += 1
+  endfor
+
+  let l:width = winwidth(0) - 5 - strlen(l:output_active)
+
+  if strlen(l:output_after) > l:width
+    let l:output_after = strpart(l:output_after, 0, l:width)
+  endif
+
+  let l:width -= strlen(l:output_after)
+
+  if strlen(l:output_before) > l:width
+    let l:output_before = strpart(l:output_before, strlen(l:output_before) - l:width , l:width)
+  endif
+         
+  let l:output = g:BuftabsConfig()['formatter_pattern']['list_prefix'] . l:output_before
+  
+  if l:output_active != ''
+    let l:output .= g:BuftabsConfig()['formatter_pattern']['active_prefix'] . l:output_active . g:BuftabsConfig()['formatter_pattern']['active_suffix']
+  endif
+  
+  let l:output .= l:output_after . g:BuftabsConfig()['formatter_pattern']['list_suffix']
+
   " Show the list. The s:config['display']['statusline'] setting determines of the list
   " is displayed in the command line (volatile) or in the statusline
   " (persistent)
 
   if g:BuftabsConfig()['display']['statusline']
-    call s:DrawInStatusline(a:content)
+    call s:DrawInStatusline(l:output)
   else
     redraw
-    call s:Pecho(a:content)
+    call s:Pecho(l:output)
   end
 endfunction
 

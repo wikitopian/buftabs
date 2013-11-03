@@ -42,5 +42,5 @@ function TestComplexSetup()
 
   call Buftabs_show(-1)
 
-  call AssertEquals(&statusline, '%#BuftabsNormal#ig.vim %##%#BuftabsActive#[buftabs/p/display.vim]%##%#BuftabsNormal#%##')
+  call AssertEquals(&statusline, '%#BuftabsNormal# buftabs/p/buftabs.vim  buftabs/p/config.vim %##%#BuftabsActive#[buftabs/p/display.vim]%##%#BuftabsNormal#%##')
 endfunction

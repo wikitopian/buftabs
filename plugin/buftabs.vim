@@ -32,12 +32,8 @@ endfunction
 
 function! Buftabs_show(deleted_buf)
 	let l:i = 1
-	let s:list = ''
-	let l:start = 0
-	let l:end = 0
-	if ! exists("w:from") 
-		let w:from = 0
-	endif
+	let s:list = []
+	let l:current_index = 0
 
 	if ! exists("w:buftabs_enabled")
 		return
@@ -66,12 +62,10 @@ function! Buftabs_show(deleted_buf)
 			" be replaced by markers later. If it is modified, it is appended with
 			" an appropriate symbol (an exclamation mark by default)
 
+      call add(s:list,  l:name)
+
 			if winbufnr(winnr()) == l:i
-				let l:start = strlen(s:list)
-				let s:list = s:list . g:BuftabsConfig()['formatter_pattern']['active_prefix'] . l:name . g:BuftabsConfig()['formatter_pattern']['active_suffix']
-				let l:end = strlen(s:list)
-			else
-				let s:list = s:list . ' ' . l:name . ' '
+				let l:current_index = len(s:list)
 			endif
 		end
 
@@ -81,24 +75,9 @@ function! Buftabs_show(deleted_buf)
 	" If the resulting list is too long to fit on the screen, chop
 	" out the appropriate part
 
-	let l:width = winwidth(0) - 12
-
-	if(l:start < w:from) 
-		let w:from = l:start - 1
-	endif
-	if l:end > w:from + l:width
-		let w:from = l:end - l:width 
-	endif
-		
-	let s:list = strpart(s:list, w:from, l:width)
-
-  let s:list = g:BuftabsConfig()['formatter_pattern']['list_prefix'] . s:list . g:BuftabsConfig()['formatter_pattern']['list_suffix']
-
-  call g:BuftabsDisplay(s:list)
+  call g:BuftabsDisplay(s:list, l:current_index)
 
 endfunction
-
-
 
 
 "
